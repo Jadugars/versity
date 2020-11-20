@@ -1,4 +1,5 @@
 import firebase from 'firebase';
+import "firebase/auth";
 
 var config = {
     apiKey: process.env.API_KEY,
@@ -14,6 +15,21 @@ var config = {
     constructor() {
       if (!firebase.apps.length) {
         firebase.initializeApp(config);
+	this.auth=firebase.auth();
+	// * Auth API *
+	 
+	  doCreateUserWithEmailAndPassword = (email, password) =>
+	    this.auth.createUserWithEmailAndPassword(email, password);
+	 
+	  doSignInWithEmailAndPassword = (email, password) =>
+	    this.auth.signInWithEmailAndPassword(email, password);
+	 
+	  doSignOut = () => this.auth.signOut();
+	 
+	  doPasswordReset = email => this.auth.sendPasswordResetEmail(email);
+	 
+	  doPasswordUpdate = password =>
+	    this.auth.currentUser.updatePassword(password);
      }
     }
   }
