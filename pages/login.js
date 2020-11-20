@@ -1,6 +1,13 @@
+import FirebaseContext from '../config/firebase/context'
+
 function Login() {
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+      <FirebaseContext.Consumer>
+        { firebase => {
+      console.log(firebase);
+        }}
+      </FirebaseContext.Consumer>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
