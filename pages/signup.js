@@ -1,22 +1,66 @@
-import FirebaseContext from "../config/firebase/context";
+import React, { useState } from "react";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-function Login() {
+function SignUp(props) {
+  const formik = useFormik({
+    initialValues: { username: "", email: "", password: "" },
+    validationSchema: Yup.object({
+      username: Yup.string()
+        .max(50, "Must be 50 characters or less")
+        .required("Required"),
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string()
+        .min(8, "Must be at least 8 characters")
+        .required("Required"),
+    }),
+    onSubmit: (values) => {
+      alert(JSON.stringify(values, null, 2));
+    },
+  });
+
+  const handleSubmit = (e) => {
+    props.firebase
+      .doCreateUserWithEmailAndPassword(email, password)
+      .then((authUser) => {
+        console.log(authUser, "User added successfully");
+      })
+      .catch((error) => {
+        console.log("Error adding User", error);
+      });
+    io;
+    e.preventDefault();
+  };
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <FirebaseContext.Consumer>
-        {(firebase) => {
-          console.log(firebase);
-        }}
-      </FirebaseContext.Consumer>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
-            Login
+            Sign Up
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}>
           <input type="hidden" name="remember" value="true" />
-          <div className="rounded-md shadow-sm -space-y-px">
+          <div className="rounded-md shadow-sm">
+            <div className="my-2">
+              <label for="name" className="font-bold text-gray-600">
+                Name
+              </label>
+              <input
+                id="name"
+                name="username"
+                required
+                className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
+                placeholder="Jack Daniels"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.name}
+              />
+            </div>
+            {formik.touched.username && formik.errors.username ? (
+              <p className="text-xs text-red-500">{formik.errors.username}</p>
+            ) : null}
             <div className="my-2">
               <label for="email-address" className="font-bold text-gray-600">
                 Email
@@ -27,9 +71,14 @@ function Login() {
                 type="email"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="Enter your email"
+                placeholder="jack@daniel.com"
+                onChange={formik.handleChange}
+                value={formik.values.email}
               />
             </div>
+            {formik.touched.email && formik.errors.email ? (
+              <p className="text-xs text-red-500">{formik.errors.email}</p>
+            ) : null}
             <div className="my-2">
               <label for="password" className="font-bold text-gray-600">
                 Password
@@ -40,34 +89,14 @@ function Login() {
                 type="password"
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
-                placeholder="Enter Password"
+                placeholder="strong_password"
+                onChange={formik.handleChange}
+                value={formik.values.password}
               />
             </div>
-          </div>
-
-          <div className="flex items-center justify-between">
-            <div className="flex items-center">
-              <input
-                id="remember_me"
-                type="checkbox"
-                className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
-              />
-              <label
-                for="remember_me"
-                className="ml-2 block text-sm text-gray-900"
-              >
-                Remember me
-              </label>
-            </div>
-
-            <div className="text-sm">
-              <a
-                href="#"
-                className="font-medium text-green-600 hover:text-green-500"
-              >
-                Forgot your password?
-              </a>
-            </div>
+            {formik.touched.password && formik.errors.password ? (
+              <p className="text-xs text-red-500">{formik.errors.password}</p>
+            ) : null}
           </div>
 
           <div>
@@ -99,4 +128,4 @@ function Login() {
   );
 }
 
-export default Login;
+export default SignUp;
