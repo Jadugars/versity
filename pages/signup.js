@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
@@ -19,7 +19,7 @@ function SignUp(props) {
           values.password
         );
         await props.firebase.verifyUser(userCredential);
-	setClicked(true);
+        setClicked(true);
       } catch (err) {
         console.error("Error which creating user: ", err);
       }

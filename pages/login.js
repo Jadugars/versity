@@ -1,20 +1,34 @@
-import FirebaseContext from "../config/firebase/context";
+import { useFormik } from "formik";
+import * as Yup from "yup";
 
-function Login() {
+function Login(props) {
+  const formik = useFormik({
+    initialValues: { email: "", password: "" },
+    validationSchema: Yup.object({
+      email: Yup.string().email("Invalid email address").required("Required"),
+      password: Yup.string()
+        .required("Required"),
+    }),
+   onSubmit: async (values) => {
+      try {
+        let result = await props.firebase.signInUser(values.email, values.password);
+        console.log("User Successfully Signed In");
+      } catch (err) {
+        console.error("Error while logging in user: ", err);
+      }
+    },
+  });
+
+
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <FirebaseContext.Consumer>
-        {(firebase) => {
-          console.log(firebase);
-        }}
-      </FirebaseContext.Consumer>
       <div className="max-w-md w-full space-y-8">
         <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
             Login
           </h2>
         </div>
-        <form className="mt-8 space-y-6" action="#" method="POST">
+        <form className="mt-8 space-y-6" onSubmit={formik.handleSubmit}> 
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="my-2">
@@ -28,6 +42,9 @@ function Login() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
                 placeholder="Enter your email"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.email}
               />
             </div>
             <div className="my-2">
@@ -41,6 +58,9 @@ function Login() {
                 required
                 className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
                 placeholder="Enter Password"
+                onChange={formik.handleChange}
+                onBlur={formik.handleBlur}
+                value={formik.values.password}
               />
             </div>
           </div>

@@ -31,6 +31,9 @@ class Firebase {
         console.error("Error sending verification email: ", error);
       });
   };
+
+  signInUser = (email, password) =>  
+    firebase.auth().signInWithEmailAndPassword(email, password)
 }
 
 export default Firebase;
