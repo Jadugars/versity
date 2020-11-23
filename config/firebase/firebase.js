@@ -17,8 +17,20 @@ class Firebase {
       firebase.initializeApp(config);
     }
   }
-  doCreateUserWithEmailAndPassword = (email, password) =>
+
+  createUser = (email, password) =>
     firebase.auth().createUserWithEmailAndPassword(email, password);
+
+  verifyUser = (userCredential) => {
+    userCredential.user
+      .sendEmailVerification()
+      .then(function () {
+        console.log("Verification Email sent");
+      })
+      .catch(function (error) {
+        console.error("Error sending verification email: ", error);
+      });
+  };
 }
 
 export default Firebase;

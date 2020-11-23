@@ -1,5 +1,5 @@
-import FirebaseContext from "../config/firebase/context";
 import "../styles/tailwind.css";
+import FirebaseContext from "../config/firebase/context";
 import { useContext } from "react";
 
 function MyApp({ Component, pageProps }) {
