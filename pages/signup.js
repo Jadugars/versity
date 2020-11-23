@@ -1,8 +1,9 @@
-import React from "react";
+import React, { useState } from "react";
 import { useFormik } from "formik";
 import * as Yup from "yup";
 
 function SignUp(props) {
+  let [clicked, setClicked] = useState(false); 
   const formik = useFormik({
     initialValues: { email: "", password: "" },
     validationSchema: Yup.object({
@@ -18,6 +19,7 @@ function SignUp(props) {
           values.password
         );
         await props.firebase.verifyUser(userCredential);
+	setClicked(true);
       } catch (err) {
         console.error("Error which creating user: ", err);
       }
@@ -74,7 +76,7 @@ function SignUp(props) {
               <p className="text-xs text-red-500">{formik.errors.password}</p>
             ) : null}
           </div>
-          <div>
+          <div className = {`${ clicked ? "" : "hidden" }`}>
             <div
               class="bg-blue-100 border-t-4 border-blue-500 rounded text-blue-900 px-4 py-3 shadow-md"
               role="alert"
