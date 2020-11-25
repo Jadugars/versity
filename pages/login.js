@@ -1,9 +1,9 @@
 import { useFormik } from "formik";
-import { useEffect } from "react"
+import { useEffect } from "react";
 import * as Yup from "yup";
-import { useRouter } from "next/router"; 
+import { useRouter } from "next/router";
 
-function Login(props) { 
+function Login(props) {
   const router = useRouter();
   const formik = useFormik({
     initialValues: { email: "", password: "" },
@@ -19,17 +19,18 @@ function Login(props) {
         );
         console.log("User Successfully Signed In", userCredentials);
         setStatus(null);
-        router.push('/dashboard')
+        router.push("/dashboard");
       } catch (err) {
         console.error("Error while logging in user: ", err);
         setStatus(err.message);
       }
     },
   });
+
   useEffect(() => {
     // Prefetch the dashboard page
-    router.prefetch('/dashboard')
-  }, []) 
+    router.prefetch("/dashboard");
+  }, []);
 
   return (
     <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">

@@ -34,6 +34,9 @@ class Firebase {
 
   signInUser = (email, password) =>
     firebase.auth().signInWithEmailAndPassword(email, password);
+
+  handleVerifyEmail = (actionCode) =>
+    firebase.auth().applyActionCode(actionCode);
 }
 
 export default Firebase;
