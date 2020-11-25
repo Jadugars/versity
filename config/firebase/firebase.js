@@ -32,8 +32,8 @@ class Firebase {
       });
   };
 
-  signInUser = (email, password) =>  
-    firebase.auth().signInWithEmailAndPassword(email, password)
+  signInUser = (email, password) =>
+    firebase.auth().signInWithEmailAndPassword(email, password);
 }
 
 export default Firebase;
