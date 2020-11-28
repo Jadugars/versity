@@ -1,6 +1,9 @@
+import Navbar from '../components/navbar'
 
-function Dashboard() {
-  return <h1>Salam Hogya</h1>
+function Dashboard(){
+    return(
+        <Navbar/>
+    )
 }
 
-export default Dashboard;
+export default Dashboard
