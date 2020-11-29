@@ -7,23 +7,21 @@ import Settings from '../components/settings'
 import Event from '../components/events'
 import { useState } from 'react'
 
-function Navbar() {
-  const [subPage, setSubPage] = useState(<Calendar/>);
+function Navbar(props) {
   function ClickEvent(){
-    setSubPage(<Event/>)
+    props.setSubPage(<Event/>)
   }
   function ClickGroup(){
-    setSubPage(<Groups/>)
+    props.setSubPage(<Groups/>)
   }
   function ClickHome(){
-    setSubPage(<Calendar/>)
+    props.setSubPage(<Calendar/>)
   }
   function ClickSetting(){
-    setSubPage(<Settings/>)
+    props.setSubPage(<Settings/>)
   }
   return (
-    <div className="inline-flex ">
-      <div className="flex-1 flex flex-row h-screen antialiased text-gray-800 ">
+      <div className="flex flex-row h-screen antialiased text-gray-800 ">
         <div className="flex flex-col items-center py-4 flex-shrink-0 w-20 bg-green-800 ">
           <a href="#"
             className="text-white  text-5xl font-bold">
@@ -63,10 +61,6 @@ function Navbar() {
               </a>
         </div>
       </div>
-      <div className="flex-1">
-        {subPage}
-      </div>
-  </div>
   )
 }
 

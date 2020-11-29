@@ -1,5 +1,5 @@
 function Calendar(){
-    return(<p>Kaam kro</p>)
+    return(<div>Kaam kro</div>)
 }
 
 export default Calendar
