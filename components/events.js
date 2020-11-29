@@ -1,7 +1,6 @@
-function Event(){
-    return(
-        <p>Poondi Scene</p>
-    )
+function Event() {
+  return <p>events</p>;
 }
 
-export default Event
+export default Event;
+

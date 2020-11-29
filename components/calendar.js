@@ -1,5 +1,5 @@
-function Calendar(){
-    return(<div>Kaam kro</div>)
+function Calendar() {
+  return <div>Calendar</div>;
 }
 
-export default Calendar
+export default Calendar;

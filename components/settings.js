@@ -1,7 +1,6 @@
-function Setting(){
-    return (
-        <p>bachi set kro</p>
-    )
+function Setting() {
+  return <p>setting</p>;
 }
 
-export default Setting
+export default Setting;
+

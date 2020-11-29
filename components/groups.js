@@ -1,7 +1,5 @@
-function Groups(){
-    return(
-        <p>Mahi Ve</p>
-    )
+function Groups() {
+  return <p>groups</p>;
 }
 
-export default Groups
+export default Groups;
