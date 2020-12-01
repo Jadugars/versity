@@ -1,6 +1,6 @@
-function Setting() {
+function Settings() {
   return <p>setting</p>;
 }
 
-export default Setting;
+export default Settings;
 

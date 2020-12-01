@@ -1,4 +1,5 @@
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import Link from "next/link"
 import {
   faHome,
   faUsers,
@@ -27,6 +28,7 @@ function Navbar(props) {
         </a>
         <ul className="flex flex-col space-y-2 mt-12">
           <li>
+            <Link href="/dashboard/calendar">
             <a href="#" onClick={ClickHome} className="flex items-center">
               <span
                 className={
@@ -38,8 +40,10 @@ function Navbar(props) {
                 <FontAwesomeIcon icon={faHome} className="text-xl" />
               </span>
             </a>
+            </Link>
           </li>
           <li>
+            <Link href="/dashboard/groups">
             <a href="#" onClick={ClickGroup} className="flex items-center">
               <span
                 className={
@@ -51,8 +55,10 @@ function Navbar(props) {
                 <FontAwesomeIcon icon={faUsers} className="text-xl" />
               </span>
             </a>
+            </Link>
           </li>
           <li>
+            <Link href="/dashboard/events">
             <a href="#" onClick={ClickEvent} className="flex items-center">
               <span
                 className={
@@ -64,8 +70,10 @@ function Navbar(props) {
                 <FontAwesomeIcon icon={faCalendarDay} className="text-xl" />
               </span>
             </a>
+            </Link>
           </li>
         </ul>
+        <Link href="/dashboard/settings">
         <a
           href="#"
           onClick={ClickSetting}
@@ -81,6 +89,7 @@ function Navbar(props) {
             <Avatar />
           </span>
         </a>
+        </Link>
       </div>
     </div>
   );
