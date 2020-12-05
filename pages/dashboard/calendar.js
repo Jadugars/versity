@@ -1,19 +1,19 @@
-import Navbar from "../../components/navbar.js"
-import Calendar from "../../components/calendar.js"
+import Navbar from "../../components/navbar.js";
+import Calendar from "../../components/calendar.js";
 import { useState } from "react";
 
-function calendarPage(){
+function calendarPage() {
   const [subPage, setSubPage] = useState("calendar");
   return (
     <div className="flex">
       <div>
-        <Navbar subPage={subPage} setSubPage={setSubPage}/>
+        <Navbar subPage={subPage} setSubPage={setSubPage} />
       </div>
       <div className="flex-grow">
-        <Calendar/>
+        <Calendar />
       </div>
     </div>
-  );  
+  );
 }
 
 export default calendarPage;
