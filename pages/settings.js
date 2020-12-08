@@ -1,5 +1,5 @@
-import Navbar from "../../components/navbar.js"
-import Settings from "../../components/settings.js"
+import Navbar from "../components/navbar.js"
+import Settings from "../components/settings.js"
 import { useState } from "react";
 
 function settingsPage(){

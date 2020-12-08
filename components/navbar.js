@@ -28,7 +28,7 @@ function Navbar(props) {
         </a>
         <ul className="flex flex-col space-y-2 mt-12">
           <li>
-            <Link href="/dashboard/calendar">
+            <Link href="/calendar">
             <a href="#" onClick={ClickHome} className="flex items-center">
               <span
                 className={
@@ -43,7 +43,7 @@ function Navbar(props) {
             </Link>
           </li>
           <li>
-            <Link href="/dashboard/groups">
+            <Link href="/groups">
             <a href="#" onClick={ClickGroup} className="flex items-center">
               <span
                 className={
@@ -58,7 +58,7 @@ function Navbar(props) {
             </Link>
           </li>
           <li>
-            <Link href="/dashboard/events">
+            <Link href="/events">
             <a href="#" onClick={ClickEvent} className="flex items-center">
               <span
                 className={
@@ -73,7 +73,7 @@ function Navbar(props) {
             </Link>
           </li>
         </ul>
-        <Link href="/dashboard/settings">
+        <Link href="/settings">
         <a
           href="#"
           onClick={ClickSetting}

@@ -1,19 +1,19 @@
-import Navbar from "../../components/navbar.js"
-import Groups from "../../components/groups.js"
+import Navbar from "../components/navbar.js"
+import Calendar from "../components/calendar.js"
 import { useState } from "react";
 
-function groupsPage(){
-  const [subPage, setSubPage] = useState("groups");
+function calendarPage(){
+  const [subPage, setSubPage] = useState("calendar");
   return (
     <div className="flex">
       <div>
         <Navbar subPage={subPage} setSubPage={setSubPage}/>
       </div>
       <div className="flex-grow">
-        <Groups/>
+        <Calendar/>
       </div>
     </div>
   );  
 }
 
-export default groupsPage;
+export default calendarPage;
