@@ -22,7 +22,7 @@ function Login(props) {
         router.push("/dashboard");
       } catch (err) {
         console.error("Error while logging in user: ", err);
-        setStatus(err.message);
+        setStatus("Invalid email or password.");
       }
     },
   });

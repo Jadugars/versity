@@ -12,16 +12,21 @@ function SignUp(props) {
         .min(8, "Must be at least 8 characters")
         .required("Required"),
     }),
-    onSubmit: async (values) => {
+    onSubmit: async (values, { setStatus }) => {
       try {
         let userCredential = await props.firebase.createUser(
           values.email,
           values.password
         );
+        setStatus(null);
         await props.firebase.verifyUser(userCredential);
         setClicked(true);
       } catch (err) {
-        console.error("Error which creating user: ", err);
+        console.error("Error while creating user: ", err);
+        if(err.code=="auth/email-already-in-use")
+           setStatus("The email address is already in use.");
+        
+        console.log(formik.status);
       }
     },
   });
@@ -76,15 +81,17 @@ function SignUp(props) {
               <p className="text-xs text-red-500">{formik.errors.password}</p>
             ) : null}
           </div>
+          
           <div className = {`${ clicked ? "" : "hidden" }`}>
+          {formik.status!=null ?
             <div
-              class="bg-blue-100 border-t-4 border-blue-500 rounded text-blue-900 px-4 py-3 shadow-md"
+              class="bg-red-100 border-t-4 border-red-500 rounded text-red-900 px-4 py-3 shadow-md"
               role="alert"
             >
               <div class="flex">
                 <div class="py-1">
                   <svg
-                    class="fill-current h-6 w-6 text-blue-500 mr-4"
+                    class="fill-current h-6 w-6 text-red-500 mr-4"
                     xmlns="http://www.w3.org/2000/svg"
                     viewBox="0 0 20 20"
                   >
@@ -92,15 +99,37 @@ function SignUp(props) {
                   </svg>
                 </div>
                 <div>
-                  <p class="font-bold">Check your inbox</p>
-                  <p class="text-sm">
+                  <p class="font-bold">{formik.status}</p>
+                </div>
+              </div>
+            </div>
+          :
+            <div
+              className="bg-blue-100 border-t-4 border-blue-500 rounded text-blue-900 px-4 py-3 shadow-md"
+              role="alert"
+            >
+              <div className="flex">
+                <div className="py-1">
+                  <svg
+                    className="fill-current h-6 w-6 text-blue-500 mr-4"
+                    xmlns="http://www.w3.org/2000/svg"
+                    viewBox="0 0 20 20"
+                  >
+                    <path d="M2.93 17.07A10 10 0 1 1 17.07 2.93 10 10 0 0 1 2.93 17.07zm12.73-1.41A8 8 0 1 0 4.34 4.34a8 8 0 0 0 11.32 11.32zM9 11V9h2v6H9v-4zm0-6h2v2H9V5z" />
+                  </svg>
+                </div>
+                <div>
+                  <p className="font-bold">Check your inbox</p>
+                  <p className="text-sm">
                     We've sent you an email with a link. Click the link to
                     verify your email.
                   </p>
                 </div>
               </div>
             </div>
+}
           </div>
+          
           <div>
             <button
               type="submit"
