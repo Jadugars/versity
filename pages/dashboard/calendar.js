@@ -1,5 +1,5 @@
 import Navbar from "../../components/navbar.js";
-import Calendar from "../../components/calendarGrid.js";
+import Calendar from "../../components/calendar.js";
 import { useState } from "react";
 
 function calendarPage() {
