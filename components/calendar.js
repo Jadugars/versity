@@ -19,7 +19,7 @@ function TasksDay(props) {
   }
 
   return (
-    <div>
+    <div className="ml-20">
       <div className="flex items-baseline">
         <h2 className="text-xl">{dayTitle}</h2>
         <p className="pl-1 text-xs text-gray-500">{dayDescription}</p>

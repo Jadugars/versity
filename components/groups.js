@@ -28,7 +28,7 @@ function Groups(props) {
 
   return (
   <div>
-    <div className="min-h-screen justify-center  bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen justify-center  bg-gray-50 ml-20 py-12 px-4 sm:px-6 lg:px-8">
       <div className=" block text-align:center">
       <a href="/createGroup" onClick={CreateGroupClick} 
       className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
