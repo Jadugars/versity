@@ -4,22 +4,28 @@ import * as Yup from "yup";
 import { useRouter } from "next/router";
 
 function CreateGroup(props) {
-    const router = useRouter();
+  const router = useRouter();
   const formik = useFormik({
-    initialValues: { GroupName: "", Discription: "", people: "" },   // add people's list
+    initialValues: { groupName: "", groupDiscription: "", people: "" },   // add people's list
     validationSchema: Yup.object({
-      GroupName: Yup.string().required("Required"),
-      //Discription: Yup.string().required("Required"),
-      //people: Yup.string().required("Required"),
+      GroupName: Yup.string().min(4, "Must be 4 characters").max(30, "There should be less than 30 characters").required("Required"),
+      Discription: Yup.string().max(100, "There should be less than 100 characters").required("Required"),
+      people: Yup.string().required("Required"),
     }),
     onSubmit: async (values, { setStatus }) => {
-      
+      try {
+        setStatus(null);
+        await props.firebase.createGroup(values.groupName, values.groupDiscription, values.people);
+      } catch (err) {
+        console.error("Error while creating group: ", err);
+        console.log(formik.status);
+      }
     },
   });
 
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+        <div className="min-h-screen flex items-center justify-center bg-gray-50 ml-20 py-12 px-4 sm:px-6 lg:px-8">
       <div className="max-w-md w-full space-y-8">
       <div>
           <h2 className="mt-6 text-center text-3xl font-extrabold text-gray-900">
@@ -34,15 +40,15 @@ function CreateGroup(props) {
             Group Name
             </label>
             <input
-              id="group-name"
-              name="GroupName"
+              id="groupName"
+              name="groupName"
               type="string"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
               placeholder="Enter group name"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.GroupName}
+              value={formik.values.groupName}
             />
           </div>
           <div className="my-4">
@@ -50,15 +56,15 @@ function CreateGroup(props) {
             Group Discription
             </label>
             <input
-              id="group-discription"
-              name="Discription"
+              id="groupDiscription"
+              name="groupDiscription"
               type="string"
               required
               className="appearance-none rounded-none relative block w-full px-3 py-2 border border-gray-300 placeholder-gray-500 text-gray-900 rounded-md focus:outline-none focus:ring-green-500 focus:border-green-500 focus:z-10 sm:text-sm"
               placeholder="Enter group discription"
               onChange={formik.handleChange}
               onBlur={formik.handleBlur}
-              value={formik.values.Discription}
+              value={formik.values.groupDiscription}
             />
           </div>
           
