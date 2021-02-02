@@ -4,7 +4,7 @@ import Calendar from "../components/calendar.js";
 function calendarPage() {
   return (
     <Layout>
-      <Calendar/>
+      <Calendar />
     </Layout>
   );
 }

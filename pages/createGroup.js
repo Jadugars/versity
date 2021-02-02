@@ -1,12 +1,12 @@
-import Layout from "../components/layout.js"
-import CreateGroup from "../components/createGroup.js"
+import Layout from "../components/layout.js";
+import CreateGroup from "../components/createGroup.js";
 
-function createGroupPage(){
+function createGroupPage(props) {
   return (
     <Layout>
-      <CreateGroup/>
+      <CreateGroup firebase={props.firebase} />
     </Layout>
-  );  
+  );
 }
 
 export default createGroupPage;
