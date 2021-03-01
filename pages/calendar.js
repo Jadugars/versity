@@ -1,10 +1,12 @@
-import Layout from "../components/layout.js";
-import Calendar from "../components/calendar.js";
+import Layout from "../components/layout";
+import Calendar from "../components/calendar";
+import UserInput from "../components/userInput";
 
 function calendarPage() {
   return (
     <Layout>
-      <Calendar/>
+      <UserInput />
+      <Calendar />
     </Layout>
   );
 }
