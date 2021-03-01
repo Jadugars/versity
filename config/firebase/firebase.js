@@ -1,5 +1,6 @@
 import firebase from "firebase";
 import "firebase/auth";
+import "firebase/firestore";
 
 var config = {
   apiKey: process.env.NEXT_PUBLIC_API_KEY,
@@ -16,6 +17,7 @@ class Firebase {
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
+    this.db = firebase.firestore();
   }
 
   createUser = (email, password) =>
@@ -37,6 +39,26 @@ class Firebase {
 
   handleVerifyEmail = (actionCode) =>
     firebase.auth().applyActionCode(actionCode);
+
+  getCurrentUser = () => firebase.auth().currentUser;
+
+  doesUserExistsInCollection = (userId) => {
+    console.log("Does user ", userId, " exist in collection?");
+    this.db
+      .collection("users")
+      .doc(userId)
+      .get()
+      .then((doc) => {
+        return doc.exists;
+      });
+  };
+
+  setupUserInCollection = (user) => {
+    console.log(user);
+    this.db.collection("users").doc(`${user.uid}`).set({
+      name: "New User",
+    });
+  };
 }
 
 export default Firebase;
