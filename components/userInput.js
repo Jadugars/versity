@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
+import axios from "axios";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -10,6 +11,24 @@ function UserInput() {
   const [dialogIsOpen, setDialogIsOpen] = useState(false);
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios({
+      method: "post",
+      url: "http://localhost:5000/send",
+      headers: { "content-type": "application/json" },
+      data: {
+        text: text,
+      },
+    })
+      .then((result) => {
+        console.log(result.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   return (
     <div className="mx-auto mt-4">
@@ -27,14 +46,14 @@ function UserInput() {
               <div className="flex items-center space-x-2">
                 <div className="flex-grow">
                   <label
-                    for="first_name"
-                    class="sr-only block text-sm font-medium text-gray-700"
+                    htmlFor="first_name"
+                    className="sr-only block text-sm font-medium text-gray-700"
                   >
                     Todo Item:
                   </label>
                   <input
                     type="text"
-                    class="mt-1 px-2 py-3 focus:ring-green-500 border border-gray-300 shadow-sm rounded-lg focus:border-green-500 block w-full sm:text-sm"
+                    className="mt-1 px-2 py-3 focus:ring-green-500 border border-gray-300 shadow-sm rounded-lg focus:border-green-500 block w-full sm:text-sm"
                     placeholder="Start typing to add a new todo"
                     value={text}
                     onChange={(e) => setText(e.target.value)}
@@ -48,18 +67,18 @@ function UserInput() {
               </div>
               <div className="flex items-center">
                 <p>in</p>
-                <div class="ml-2">
+                <div className="ml-2">
                   <label
-                    for="country"
-                    class="sr-only block text-sm font-medium text-gray-700"
+                    htmlFor="country"
+                    className="sr-only block text-sm font-medium text-gray-700"
                   >
                     Select Timetable:
                   </label>
                   <select
                     id="country"
                     name="country"
-                    autocomplete="country"
-                    class="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
+                    autoComplete="country"
+                    className="mt-1 block w-full py-2 px-3 border border-gray-300 bg-white rounded-lg shadow-sm focus:outline-none focus:ring-green-500 focus:border-green-500 sm:text-sm"
                   >
                     <option>Personal Timetable</option>
                     <option>2018-A</option>
@@ -70,7 +89,7 @@ function UserInput() {
               <div className="flex items-center space-x-2">
                 <p>on</p>
                 <div>
-                  <label className="sr-only" for="startDate">
+                  <label className="sr-only" htmlFor="startDate">
                     Date:
                   </label>
                   <DatePicker
@@ -84,7 +103,7 @@ function UserInput() {
               <div className="flex items-center space-x-2">
                 <p>from</p>
                 <div>
-                  <label className="sr-only" for="startTime">
+                  <label className="sr-only" htmlFor="startTime">
                     Start Time:
                   </label>
                   <input
@@ -95,7 +114,7 @@ function UserInput() {
                 </div>
                 <p>to</p>
                 <div>
-                  <label className="sr-only" for="endTime">
+                  <label className="sr-only" htmlFor="endTime">
                     End Time:
                   </label>
                   <input
@@ -117,13 +136,14 @@ function UserInput() {
               <button
                 type="submit"
                 className="rounded-md float-right px-3 py-2 mt-1 bg-green-500 text-white font-semibold"
+                onClick={(e) => handleSubmit(e)}
               >
                 Create Task
               </button>
             </form>
           </div>
           <div
-            class="absolute inset-0 bg-gray-100 bg-opacity-75 transition-opacity"
+            className="absolute inset-0 bg-gray-100 bg-opacity-75 transition-opacity"
             aria-hidden="true"
           ></div>
         </div>

@@ -13,6 +13,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.15.1",
     "@fortawesome/react-fontawesome": "^0.1.13",
     "autoprefixer": "^9",
+    "axios": "^0.21.1",
     "dayjs": "^1.10.3",
     "firebase": "^8.0.2",
     "formik": "^2.2.5",
