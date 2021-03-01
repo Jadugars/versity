@@ -16,6 +16,7 @@ class Firebase {
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
+    this.db = firebase.firestore();
   }
 
   createUser = (email, password) =>
@@ -37,6 +38,107 @@ class Firebase {
 
   handleVerifyEmail = (actionCode) =>
     firebase.auth().applyActionCode(actionCode);
+
+  addData = () => {
+    this.db
+      .collection("users")
+      .add({
+        first: "Ada",
+        last: "Lovelace",
+        born: 1815,
+      })
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error) {
+        console.error("Error adding document: ", error);
+      });
+  };
+
+  createEvent = () => {
+    this.db
+      .collection("events")
+      .add({
+        title: "Akasee",
+        Discription: "Big Event",
+        attendees: "1815",
+        isGroupEvent: false,
+        groupId: null,
+      })
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error) {
+        console.error("Error adding Event: ", error);
+      });
+  };
+
+  viewUserEvents = () => {
+    let event = this.db
+      .collection("events")
+      .where("attendee", "array-contains", "01")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+    return events;
+  };
+
+  viewGroupEvents = () => {
+    let event = this.db
+      .collection("events")
+      .where("groupId", "==", "01")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+    return events;
+  };
+
+  createGroup = (groupName, groupDiscription, people) => {
+    console.log("createGroup called");
+    return this.db
+      .collection("groups")
+      .add({
+        name: groupName,
+        discription: groupDiscription,
+      })
+      .then(function (docRef) {
+        console.log("Document written with ID: ", docRef.id);
+      })
+      .catch(function (error) {
+        console.error("Error adding Group: ", error);
+      });
+  };
+
+  viewUserGroups = () => {
+    let groups = this.db
+      .collection("groups")
+      .where("name", "==", "Kaar-e-Kamal")
+      .get()
+      .then(function (querySnapshot) {
+        querySnapshot.forEach(function (doc) {
+          // doc.data() is never undefined for query doc snapshots
+          console.log(doc.id, " => ", doc.data());
+        });
+      })
+      .catch(function (error) {
+        console.log("Error getting documents: ", error);
+      });
+    return groups;
+  };
 }
 
 export default Firebase;

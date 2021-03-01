@@ -33,7 +33,7 @@ function Events(props) {
 
   return (
   <div>
-    <div className="min-h-screen items-center justify-center  bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen items-center justify-center  bg-gray-50 ml-20 py-12 px-4 sm:px-6 lg:px-8">
       <div className=" block text-align:center">
       <div className="my-2">
             <label for="group-discription" className="pd-4 font-bold text-lg text-gray-600 flex justify-center">
