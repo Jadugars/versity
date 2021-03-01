@@ -1,10 +1,11 @@
-import Navbar from "../components/navbar.js";
+import Layout from "../components/layout.js";
 import Calendar from "../components/calendar.js";
+
 import { useState } from "react";
 import UserInput from "../components/userInput.js";
 
+
 function calendarPage() {
-  const [subPage, setSubPage] = useState("calendar");
   return (
     <div className="flex ">
       <div>
