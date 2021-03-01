@@ -19,10 +19,30 @@ function Login(props) {
         );
         console.log("User Successfully Signed In", userCredentials);
         setStatus(null);
-        router.push("/dashboard");
+
+        try {
+          let currentUser = await props.firebase.getCurrentUser();
+          let userExists = await props.firebase.doesUserExistsInCollection(
+            currentUser.uid
+          );
+          if (userExists) {
+            console.log("User exists in collection");
+          } else {
+            console.log("User doesn't exist in collection");
+            try {
+              await props.firebase.setupUserInCollection(currentUser);
+            } catch (err) {
+              console.error("Error while setting up user in database");
+            }
+          }
+        } catch (err) {
+          console.error("Error while checking if user exists in database");
+        }
       } catch (err) {
         console.error("Error while logging in user: ", err);
-        setStatus("Invalid email or password.");
+        setStatus("Error while logging user in: ", err.message);
+      } finally {
+        router.push("/calendar");
       }
     },
   });
@@ -44,7 +64,10 @@ function Login(props) {
           <input type="hidden" name="remember" value="true" />
           <div className="rounded-md shadow-sm -space-y-px">
             <div className="my-2">
-              <label for="email-address" className="font-bold text-gray-600">
+              <label
+                htmlFor="email-address"
+                className="font-bold text-gray-600"
+              >
                 Email
               </label>
               <input
@@ -60,7 +83,7 @@ function Login(props) {
               />
             </div>
             <div className="my-2">
-              <label for="password" className="font-bold text-gray-600">
+              <label htmlFor="password" className="font-bold text-gray-600">
                 Password
               </label>
               <input
@@ -85,7 +108,7 @@ function Login(props) {
                 className="h-4 w-4 text-green-600 focus:ring-green-500 border-gray-300 rounded"
               />
               <label
-                for="remember_me"
+                htmlFor="remember_me"
                 className="ml-2 block text-sm text-gray-900"
               >
                 Remember me
@@ -138,9 +161,9 @@ function Login(props) {
                   aria-hidden="true"
                 >
                   <path
-                    fill-rule="evenodd"
+                    fillRule="evenodd"
                     d="M5 9V7a5 5 0 0110 0v2a2 2 0 012 2v5a2 2 0 01-2 2H5a2 2 0 01-2-2v-5a2 2 0 012-2zm8-2v2H7V7a3 3 0 016 0z"
-                    clip-rule="evenodd"
+                    clipRule="evenodd"
                   />
                 </svg>
               </span>
