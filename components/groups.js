@@ -28,21 +28,23 @@ function Groups(props) {
 
   return (
   <div>
-    <div className="min-h-screen justify-center  bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
-      <div className=" block text-align:center">
+    <div className="min-h-screen bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="text-center">
+      <div className="block w-2/12 mx-auto">
       <a href="/createGroup" onClick={CreateGroupClick} 
       className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
       >
       Create Group
     </a>
           </div>
-      <div className="pt-5">
+      <div className="pt-5 block w-2/12 mx-auto">
       <a href="/joinGroup" onClick={JoinGroupClick} 
       className="group relative w-full flex justify-center py-2 px-4 border border-transparent text-sm font-medium rounded-md text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500"
       >
       Join Group
     </a>
           </div>
+    </div>
           <div className="pt-6 container bg-transparent text-4xl font-serif">Joined Groups</div>
           <div class="pt-6 grid grid-flow-row grid-cols-4 grid-rows-3 gap-10">
             {list}
