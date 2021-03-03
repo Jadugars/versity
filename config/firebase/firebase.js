@@ -16,6 +16,7 @@ class Firebase {
     if (!firebase.apps.length) {
       firebase.initializeApp(config);
     }
+    this.db = firebase.firestore();
   }
 
   createUser = (email, password) =>
@@ -37,6 +38,28 @@ class Firebase {
 
   handleVerifyEmail = (actionCode) =>
     firebase.auth().applyActionCode(actionCode);
+
+  createGroup = (groupName, groupDescription) => {
+    var user = firebase.auth().currentUser;
+    //var database = firebase.database();
+    this.db
+      .collection("groups")
+      .add({
+        name: groupName,
+        description: groupDescription,
+      })
+      .then((docRef) => {
+        this.db.collection("groups").doc(docRef.id).collection("members").add({
+          id: user.uid,
+          isAdmin: true,
+          name: "Abdullah",
+        });
+        console.log("Group Created!");
+      })
+      .catch(function (error) {
+        console.error("Error creating group ", error);
+      });
+  };
 }
 
 export default Firebase;
