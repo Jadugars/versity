@@ -1,12 +1,12 @@
-import Layout from "../components/layout.js"
-import Groups from "../components/groups.js"
+import Layout from "../components/layout.js";
+import Groups from "../components/groups.js";
 
-function groupsPage(){
+function groupsPage(props) {
   return (
     <Layout>
-      <Groups/> 
+      <Groups fb={props} />
     </Layout>
-  );  
+  );
 }
 
 export default groupsPage;
