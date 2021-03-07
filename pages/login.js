@@ -26,23 +26,23 @@ function Login(props) {
             currentUser.uid
           );
           if (userExists) {
-            console.log("User exists in collection");
+            router.push("/dashboard");
           } else {
-            console.log("User doesn't exist in collection");
             try {
               await props.firebase.setupUserInCollection(currentUser);
+              router.push("/dashboard");
             } catch (err) {
               console.error("Error while setting up user in database");
+              setStatus(err.message);
             }
           }
         } catch (err) {
           console.error("Error while checking if user exists in database");
+          setStatus(err.message);
         }
       } catch (err) {
         console.error("Error while logging in user: ", err);
-        setStatus("Error while logging user in: ", err.message);
-      } finally {
-        router.push("/calendar");
+        setStatus(err.message);
       }
     },
   });
