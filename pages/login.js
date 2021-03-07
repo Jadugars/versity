@@ -26,11 +26,11 @@ function Login(props) {
             currentUser.uid
           );
           if (userExists) {
-            router.push("/dashboard");
+            router.push("/calendar");
           } else {
             try {
               await props.firebase.setupUserInCollection(currentUser);
-              router.push("/dashboard");
+              router.push("/calendar");
             } catch (err) {
               console.error("Error while setting up user in database");
               setStatus(err.message);
