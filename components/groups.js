@@ -19,7 +19,7 @@ function Groups(props) {
     ["Tribune", "Media Society"],
     ["Kaar-e-Kamal", "Welfare Organization"],
     ["AKS", "Photography Society"],
-    ["AKS", "Photography Society"],
+    ["AKS-Design", "Team Designing AKS Society"],
   ];
   const list = [];
   groupList.forEach((element) => {
@@ -49,7 +49,7 @@ function Groups(props) {
             Join Group
           </a>
         </div>
-        <div className="pt-6 container bg-transparent text-4xl font-serif">
+        <div className="pt-6 container bg-transparent text-3xl font-bold">
           Joined Groups
         </div>
         <div class="pt-6 grid grid-flow-row grid-cols-4 grid-rows-3 gap-10">

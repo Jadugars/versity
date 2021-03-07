@@ -52,7 +52,7 @@ function Events(props) {
             />
           </div>
           </div>
-          <div className="pt-2 container bg-transparent text-4xl font-serif">Events for you</div>
+          <div className="pt-2 container bg-transparent text-3xl font-bold">Events for you</div>
           <div class="pt-6 grid grid-flow-row grid-cols-4 grid-rows-3 gap-10">
             {list}
           </div>
