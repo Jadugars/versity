@@ -1,8 +1,8 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTimes, faPlusCircle } from "@fortawesome/free-solid-svg-icons";
 import DatePicker from "react-datepicker";
-import axios from "axios";
+import ReactShortcut from "react-shortcut";
 
 import "react-datepicker/dist/react-datepicker.css";
 
@@ -12,26 +12,78 @@ function UserInput() {
   const [startDate, setStartDate] = useState(new Date());
   const [endDate, setEndDate] = useState(new Date());
 
-  const handleSubmit = (e) => {
-    e.preventDefault();
-    axios({
-      method: "post",
-      url: "http://localhost:5000/send",
-      headers: { "content-type": "application/json" },
-      data: {
-        text: text,
-      },
-    })
-      .then((result) => {
-        console.log(result.data);
-      })
-      .catch((error) => {
-        console.log(error);
-      });
+  const shortcutKeys = [
+    "shift+a",
+    "shift+b",
+    "shift+c",
+    "shift+d",
+    "shift+e",
+    "shift+f",
+    "shift+g",
+    "shift+h",
+    "shift+i",
+    "shift+j",
+    "shift+k",
+    "shift+l",
+    "shift+m",
+    "shift+n",
+    "shift+o",
+    "shift+p",
+    "shift+q",
+    "shift+r",
+    "shift+s",
+    "shift+t",
+    "shift+u",
+    "shift+v",
+    "shift+w",
+    "shift+x",
+    "shift+y",
+    "shift+z",
+    "a",
+    "b",
+    "c",
+    "d",
+    "e",
+    "f",
+    "g",
+    "h",
+    "i",
+    "j",
+    "k",
+    "l",
+    "m",
+    "n",
+    "o",
+    "p",
+    "q",
+    "r",
+    "s",
+    "t",
+    "u",
+    "v",
+    "w",
+    "x",
+    "y",
+    "z",
+  ];
+  const inputEl = useRef(null);
+  const handleShortcutOpen = () => {
+    setDialogIsOpen(true);
+    inputEl.current.focus();
+  };
+  const handleShortcutClose = () => {
+    setDialogIsOpen(false);
+  };
+  const handleCloseOnEsc = (e) => {
+    if (e.keyCode === 27) {
+      handleShortcutClose();
+    }
   };
 
   return (
     <div className="mx-auto mt-4">
+      <ReactShortcut keys={shortcutKeys} onKeysPressed={handleShortcutOpen} />
+      <ReactShortcut keys={["esc"]} onKeysPressed={handleShortcutClose} />
       <div
         onClick={(e) => setDialogIsOpen(true)}
         className="mx-auto max-w-lg text-gray-400 mt-1 px-4 py-3 flex justify-between w-full shadow-md sm:text-sm border-gray-300 rounded-md"
@@ -58,6 +110,8 @@ function UserInput() {
                     value={text}
                     onChange={(e) => setText(e.target.value)}
                     required
+                    ref={inputEl}
+                    onKeyDown={handleCloseOnEsc}
                   />
                 </div>
                 <button onClick={(e) => setDialogIsOpen(false)}>
@@ -69,7 +123,7 @@ function UserInput() {
                 <p>in</p>
                 <div className="ml-2">
                   <label
-                    htmlFor="country"
+                    htmlFor="timetable"
                     className="sr-only block text-sm font-medium text-gray-700"
                   >
                     Select Timetable:
