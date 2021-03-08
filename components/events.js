@@ -33,7 +33,7 @@ function Events(props) {
 
   return (
   <div>
-    <div className="min-h-screen items-center justify-center  bg-gray-50 py-12 px-4 sm:px-6 lg:px-8">
+    <div className="min-h-screen items-center justify-center  bg-gray-50 ml-20 py-12 px-4 sm:px-6 lg:px-8">
       <div className=" block text-align:center">
       <div className="my-2">
             <label for="group-discription" className="pd-4 font-bold text-lg text-gray-600 flex justify-center">
@@ -52,7 +52,7 @@ function Events(props) {
             />
           </div>
           </div>
-          <div className="pt-2 container bg-transparent text-4xl font-serif">Events for you</div>
+          <div className="pt-2 container bg-transparent text-3xl font-bold">Events for you</div>
           <div class="pt-6 grid grid-flow-row grid-cols-4 grid-rows-3 gap-10">
             {list}
           </div>

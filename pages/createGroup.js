@@ -1,19 +1,12 @@
-import Navbar from "../components/navbar.js"
-import CreateGroup from "../components/createGroup.js"
-import { useState } from "react";
+import Layout from "../components/layout.js";
+import CreateGroup from "../components/createGroup.js";
 
-function createGroupPage(){
-  const [subPage, setSubPage] = useState("createGroup");
+function createGroupPage(props) {
   return (
-    <div className="flex">
-      <div>
-        <Navbar subPage={subPage} setSubPage={setSubPage}/>
-      </div>
-      <div className="flex-grow">
-        <CreateGroup/>
-      </div>
-    </div>
-  );  
+    <Layout>
+      <CreateGroup firebase={props.firebase} />
+    </Layout>
+  );
 }
 
 export default createGroupPage;

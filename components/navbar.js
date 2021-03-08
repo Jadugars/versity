@@ -1,3 +1,4 @@
+import { useRouter } from "next/router";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Link from "next/link"
 import {
@@ -20,10 +21,17 @@ function Navbar(props) {
   function ClickSetting() {
     props.setSubPage("settings");
   }
+
+  const router = useRouter();
+  const indexClick= (e) => {
+    e.preventDefault();
+    router.push("/");
+  };
+
   return (
-    <div className="flex flex-row h-screen antialiased text-gray-800 ">
+    <div className="fixed top-0 left-0 overflow-x-hidden flex flex-row h-screen antialiased text-gray-800 ">
       <div className="flex flex-col items-center py-4 flex-shrink-0 w-20 bg-green-800 ">
-        <a href="#" className="text-white text-5xl font-bold">
+        <a href="/" onClick={indexClick} className="text-white text-5xl font-bold">
           V
         </a>
         <ul className="flex flex-col space-y-2 mt-12">
