@@ -1,6 +1,8 @@
 import * as dayjs from "dayjs";
+import { useEffect, useState } from "react";
 const isToday = require("dayjs/plugin/isToday");
 const isTomorrow = require("dayjs/plugin/isTomorrow");
+import mapSort from "mapsort";
 
 dayjs.extend(isToday);
 dayjs.extend(isTomorrow);
@@ -18,6 +20,22 @@ function TasksDay(props) {
     dayDescription = props.day.format("D MMM");
   }
 
+  const eventsWithTime = props.events.filter((event) => event.startTime);
+  const eventsWithoutTime = props.events.filter((event) => !event.startTime);
+  const sortedEvents = mapSort(
+    eventsWithTime,
+    (el) => el.startTime,
+    (aTime, bTime) => {
+      if (aTime.isBefore(bTime)) {
+        return -1;
+      } else if (bTime.isBefore(aTime)) {
+        return 1;
+      }
+      return 0;
+    }
+  );
+  const finalEventsList = sortedEvents.concat(eventsWithoutTime);
+
   return (
     <div className="ml-20">
       <div className="flex items-baseline">
@@ -25,7 +43,7 @@ function TasksDay(props) {
         <p className="pl-1 text-xs text-gray-500">{dayDescription}</p>
       </div>
       <ul className="max-w-lg pt-2">
-        {props.events.map((event, i) => {
+        {finalEventsList.map((event, i) => {
           return (
             <li
               className="flex justify-between items-center py-2"
@@ -37,6 +55,12 @@ function TasksDay(props) {
                   className="appearance-none rounded-full bg-green-50 h-4 w-4 text-gray-600 ring-2 ring-green-500 checked:bg-green-500 checked:border-transparent "
                 />
                 <span className="ml-2 text-gray-700">{event.title}</span>
+                {event.startTime && (
+                  <span className="ml-2 text-sm text-gray-500">
+                    {event.startTime.format("H:mm a")} to{" "}
+                    {event.endTime.format("H:mm a")}
+                  </span>
+                )}
               </label>
               <div className="flex items-baseline">
                 {event.tags.map((tag, i) => {
@@ -56,67 +80,7 @@ function TasksDay(props) {
   );
 }
 
-function Calendar() {
-  let eventDays = [
-    {
-      day: dayjs(),
-      events: [
-        {
-          title: "Marketing",
-          description: "",
-          people: "Lina Neal",
-          tags: ["Laboratory", "Exam", "RA236"],
-        },
-        {
-          title: "Advertising photography",
-          description: "",
-          people: "Johnny Alwarez",
-          tags: ["Project", "KM107"],
-        },
-        {
-          title: "Mass Media",
-          description: "",
-          people: "Mina Schmidt",
-          tags: ["Lecture", "KM107"],
-        },
-      ],
-    },
-    {
-      day: dayjs().add(1, "day"),
-      events: [
-        {
-          title: "Advertising photography",
-          description: "",
-          people: "Tillie Clarke",
-          tags: ["Project", "KM107"],
-        },
-        {
-          title: "Mass Media",
-          description: "",
-          people: "Mina Schmidt",
-          tags: ["Lecture", "KM107"],
-        },
-      ],
-    },
-    {
-      day: dayjs().add(2, "day"),
-      events: [
-        {
-          title: "Marketing",
-          description: "",
-          people: "Loretta Park",
-          tags: ["Laboratory", "MA101"],
-        },
-        {
-          title: "Graphic Design",
-          description: "",
-          people: "Grace Santiago",
-          tags: ["Seminar", "KM107"],
-        },
-      ],
-    },
-  ];
-
+function Calendar({ eventDays }) {
   return (
     <div className="p-6 space-y-8">
       {eventDays.map((eventDay, i) => {
